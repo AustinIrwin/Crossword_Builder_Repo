@@ -1,4 +1,4 @@
-package org.crosswordBuilder;
+package org.crosswordBuilder.Model;
 
 public interface IBlock {
     //set to blank space
@@ -20,7 +20,7 @@ public interface IBlock {
      * @param guess - a char that the user has guessed is contained in this block
      * @return true if this guess is correct
      */
-    boolean guess(char guess);
+    boolean setGuess(char guess);
 
     /**
      *
@@ -30,12 +30,10 @@ public interface IBlock {
     char getGuess();
 
     /**
-     * if -1 then its blacked out (closed)
-     * if 0 then its blank
-     * need param checking to limit only letters and convert all letters to capital
-     * @param letter -
+     * solves the block by setting the guess == to the letter
      */
-    void setLetter(char letter);
+    void solve();
 
+    boolean isCorrect();
 
 }
