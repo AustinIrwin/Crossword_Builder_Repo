@@ -15,7 +15,6 @@ public class Block implements IBlock {
       this.closed = false;
       this.guess = 0;
     }
-    ;
   }
 
   /**
@@ -64,7 +63,17 @@ public class Block implements IBlock {
     if (closed) {
       return true;
     }
-    ;
     return guess == letter;
   }
+
+  /**
+   * if not blocked, will reset guess to null
+   */
+  @Override
+  public void reset() {
+    if(!closed){
+      guess = 0;
+    }
+  }
+
 }

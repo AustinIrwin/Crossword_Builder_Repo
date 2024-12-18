@@ -36,4 +36,9 @@ public interface IBlock {
 
     boolean isCorrect();
 
+    /**
+     * if not blocked, will reset guess to null
+     */
+    void reset();
+
 }
