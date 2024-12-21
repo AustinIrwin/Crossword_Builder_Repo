@@ -2,10 +2,10 @@ package org.crosswordBuilder.Model;
 
 public interface IPuzzleLibrary {
 
+    void addPuzzle(IPuzzle puzzle);
 
-    boolean isSolved();
+    IPuzzle getPuzzle(int index);
+    int size();
 
-    boolean checkBlock(int x, int y);
 
-    boolean checkWord(int x, int y, IPuzzle.Direction direction);
 }
