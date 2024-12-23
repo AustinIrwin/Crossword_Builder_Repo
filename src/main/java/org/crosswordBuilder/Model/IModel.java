@@ -16,11 +16,11 @@ public interface IModel {
 
     void nextWord();
 
-    void randPuzzle();
-
     void toggleShowCorrect();
 
     void toggleDirection();
+
+    void setActiveBlock(int x, int y);
 
 
 

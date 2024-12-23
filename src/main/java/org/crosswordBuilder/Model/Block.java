@@ -11,7 +11,10 @@ public class Block implements IBlock {
       this.closed = true;
 
     } else {
-      this.letter = (char) letter;
+      if(letter < 65 || letter > 122 || (letter > 90 && letter < 97)){
+        throw new IllegalArgumentException("Not a valid character");
+      }
+      this.letter = Character.toUpperCase( (char) letter );
       this.closed = false;
       this.guess = 0;
     }
@@ -34,7 +37,7 @@ public class Block implements IBlock {
     if (closed) {
       throw new IllegalStateException("This block is closed");
     }
-    this.guess = guess;
+    this.guess = Character.toUpperCase( guess );
     return isCorrect();
   }
 
@@ -48,6 +51,14 @@ public class Block implements IBlock {
       throw new IllegalStateException("This block is closed");
     }
     return guess;
+  }
+
+  @Override
+  public char getLetter(){
+    if(closed) {
+      throw new IllegalArgumentException("This block is closed");
+    }
+    return letter;
   }
 
   /** solves the block by setting the guess == to the letter */

@@ -51,7 +51,7 @@ public class SamplePuzzle {
         IClue A1 = new Clue("Detective's find", IPuzzle.Direction.ACROSS, 1, false);
         clues_01[0] = A1;
 
-        IPuzzle puzzle_01 = new Puzzle(board_01, clues_01);
+        IPuzzle puzzle_01 = new Puzzle("Grande", board_01, clues_01);
 
         return puzzle_01;
     }
@@ -59,11 +59,11 @@ public class SamplePuzzle {
 
     public static IPuzzle mini_Puzzle(){
         //Copyright the New York Times mini Crossword
-        int[][] mini_Frame = {  { 0 , 0 ,'A','T','E'},
+        int[][] mini_Frame = {  { -1, -1,'A','T','E'},
                                 {'D','I','D','I','T'},
                                 {'O','B','A','M','A'},
                                 {'J','A','M','E','S'},
-                                {'O','R','S', 0 , 0 }};
+                                {'O','R','S', -1 , -1 }};
 
         IBoard mini_Board = new Board(mini_Frame);
 
@@ -100,7 +100,26 @@ public class SamplePuzzle {
         IClue D5 = new Clue("Letter Shaped construction beam", IPuzzle.Direction.DOWN, 5, false);
         mini_Clues[9] = D5;
 
-        return new Puzzle(mini_Board, mini_Clues);
+        return new Puzzle("Mini", mini_Board, mini_Clues);
+    }
+
+    public static IPuzzle medium_Puzzle(){
+        int[][] medium_Frame = {{-1 ,-1 ,'L','A','S','E',-1 },
+                                {-1 ,'W','I','N','T','E','R'},
+                                {'C','E','N','T','U','R','Y'},
+                                {'A','G','E',-1 ,'D','I','E'},
+                                {'R','O','O','K','I','E','S'},
+                                {'L','O','N','G','E','R',-1 },
+                                {-1 ,'D','E','B','S',-1 ,-1 }};
+
+        IBoard medium_Board = new Board(medium_Frame);
+
+        IClue[] medium_clues = new IClue[16];
+        for(int x = 0; x < 16; x++){
+            medium_clues[x] = new Clue("Placeholder Clue, good luck guessing", IPuzzle.Direction.ACROSS, x, false);
+        }
+
+        return new Puzzle("Midi", medium_Board, medium_clues);
     }
 }
 

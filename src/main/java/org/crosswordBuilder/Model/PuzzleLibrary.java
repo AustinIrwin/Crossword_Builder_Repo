@@ -21,6 +21,9 @@ public class PuzzleLibrary implements IPuzzleLibrary {
 
   @Override
   public IPuzzle getPuzzle(int index) {
+    if(index < 0 || index >= size()){
+      throw new ArrayIndexOutOfBoundsException();
+    }
     return puzzles.get(index);
   }
 

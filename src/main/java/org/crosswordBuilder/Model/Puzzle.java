@@ -2,10 +2,12 @@ package org.crosswordBuilder.Model;
 
 public class Puzzle implements IPuzzle {
 
+  private String title;
   private IBoard board;
   private IClue[] clues;
 
-  public Puzzle(IBoard board, IClue[] clues){
+  public Puzzle(String title, IBoard board, IClue[] clues){
+    this.title = title;
     this.board = board;
     this.clues = clues;
   }
@@ -23,6 +25,9 @@ public class Puzzle implements IPuzzle {
   public IBoard getBoard() {
     return board;
   }
+
+  @Override
+  public String getTitle(){ return title;}
 
   @Override
   public void makeGuess(int x, int y, char guess) {

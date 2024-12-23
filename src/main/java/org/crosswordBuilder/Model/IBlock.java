@@ -29,6 +29,8 @@ public interface IBlock {
      */
     char getGuess();
 
+    char getLetter();
+
     /**
      * solves the block by setting the guess == to the letter
      */

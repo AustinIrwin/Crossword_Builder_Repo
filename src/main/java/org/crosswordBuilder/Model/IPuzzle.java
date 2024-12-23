@@ -12,5 +12,7 @@ public interface IPuzzle {
 
     IBoard getBoard();
 
+    String getTitle();
+
     void makeGuess(int x, int y, char guess);
 }

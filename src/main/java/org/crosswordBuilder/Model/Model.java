@@ -8,6 +8,14 @@ public class Model implements IModel{
     int activeBlockY;
     IPuzzle.Direction activeDirection;
     boolean showCorrect;
+
+    public Model(IPuzzleLibrary library){
+        this.puzzleLibrary = library;
+        this.activeDirection = IPuzzle.Direction.ACROSS;
+        this.activePuzzleIndex = 0;
+        this.activeBlockX = 0;
+        this.activeBlockY = firstY();
+    }
     @Override
     public IPuzzle getActivePuzzle() {
         return puzzleLibrary.getPuzzle(activePuzzleIndex);
@@ -134,16 +142,13 @@ public class Model implements IModel{
             }
             case DOWN -> {
                 //gets to the top of the word
-                while(activeBlockX - 1 > 0 && !getActivePuzzle().getBoard().getBlock(activeBlockX-1, activeBlockY).isClosed()){
+                while(activeBlockX - 1 >= 0 && !getActivePuzzle().getBoard().getBlock(activeBlockX-1, activeBlockY).isClosed()){
                     activeBlockX--;
                 }
-
-
                 do{
-
                     if(activeBlockY + 1 < getActivePuzzle().getBoard().getSize()){
                         //still in row, move one to the right and check again
-                        activeBlockY = activeBlockY+1;
+                        activeBlockY = activeBlockY + 1;
                     }
                     else{
                         //hit the end of a row
@@ -178,22 +183,30 @@ public class Model implements IModel{
     }
 
     @Override
-    public void randPuzzle() {
-
-    }
-
-    @Override
     public void toggleShowCorrect() {
         showCorrect = !showCorrect;
     }
 
     @Override
     public void toggleDirection() {
-        if(activeDirection == IPuzzle.Direction.DOWN){
-            activeDirection = IPuzzle.Direction.ACROSS;
+        if(activeDirection == IPuzzle.Direction.ACROSS){
+            System.out.println("Direction is Across");
+            activeDirection = IPuzzle.Direction.DOWN;
+            System.out.println("Just changed direction to Down");
         }
         else{
-            activeDirection = IPuzzle.Direction.DOWN;
+            System.out.println("Direction is Down");
+            activeDirection = IPuzzle.Direction.ACROSS;
+            System.out.println("Just changed direction to Across");
         }
+    }
+
+    @Override
+    public void setActiveBlock(int x, int y){
+        if(x < 0 || y < 0 || x >= getActivePuzzle().getBoard().getSize() || y >= getActivePuzzle().getBoard().getSize()){
+            throw new IllegalArgumentException("Desired block index is out of bounds");
+        }
+        this.activeBlockY = y;
+        this.activeBlockX = x;
     }
 }
