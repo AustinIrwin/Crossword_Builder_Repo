@@ -6,6 +6,9 @@ public interface IModel {
     IBlock getActiveBlock();
     IPuzzle.Direction getDirection();
 
+    int getActiveBlockX();
+    int getActiveBlockY();
+
     void nextPuzzle();
 
     void prevPuzzle();
@@ -22,7 +25,12 @@ public interface IModel {
 
     void setActiveBlock(int x, int y);
 
+    void setActivePuzzleIndex(int index);
 
+    void addObserver(ModelObserver observer);
 
+    void removeObserver(ModelObserver observer);
+
+    void notifyObservers();
 
 }

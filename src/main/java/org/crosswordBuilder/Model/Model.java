@@ -1,13 +1,17 @@
 package org.crosswordBuilder.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Model implements IModel{
 
-    IPuzzleLibrary puzzleLibrary;
-    int activePuzzleIndex;
-    int activeBlockX;
-    int activeBlockY;
-    IPuzzle.Direction activeDirection;
-    boolean showCorrect;
+    private IPuzzleLibrary puzzleLibrary;
+    private int activePuzzleIndex;
+    private int activeBlockX;
+    private int activeBlockY;
+    private IPuzzle.Direction activeDirection;
+    private boolean showCorrect;
+    private List<ModelObserver> modelObservers;
 
     public Model(IPuzzleLibrary library){
         this.puzzleLibrary = library;
@@ -15,6 +19,7 @@ public class Model implements IModel{
         this.activePuzzleIndex = 0;
         this.activeBlockX = 0;
         this.activeBlockY = firstY();
+        modelObservers = new ArrayList<>();
     }
     @Override
     public IPuzzle getActivePuzzle() {
@@ -29,6 +34,16 @@ public class Model implements IModel{
     @Override
     public IPuzzle.Direction getDirection() {
         return activeDirection;
+    }
+
+    @Override
+    public int getActiveBlockX(){
+        return activeBlockX;
+    }
+
+    @Override
+    public int getActiveBlockY(){
+        return activeBlockY;
     }
 
     @Override
@@ -72,13 +87,13 @@ public class Model implements IModel{
         switch(activeDirection){
             case DOWN -> {
                 //if there is space left in this word
-                if(activeBlockX - 1 < 0 && !getActivePuzzle().getBoard().getBlock(activeBlockX-1, activeBlockY).isClosed()){
+                if(activeBlockX - 1 >= 0 && !getActivePuzzle().getBoard().getBlock(activeBlockX-1, activeBlockY).isClosed()){
                     activeBlockX--;
                 }
                 //otherwise go to the next word
             }
             case ACROSS -> {
-                if(activeBlockY - 1 < getActivePuzzle().getBoard().getSize() && !getActivePuzzle().getBoard().getBlock(activeBlockX, activeBlockY-1).isClosed()){
+                if(activeBlockY - 1 >= 0 && !getActivePuzzle().getBoard().getBlock(activeBlockX, activeBlockY-1).isClosed()){
                     activeBlockY--;
                 }
             }
@@ -115,7 +130,7 @@ public class Model implements IModel{
                     }
                 }
                 //sameRow = true;
-                //word is over or at a new row, increment y until youve found a not closed block
+                //word is over or at a new row, increment y until you've found a not closed block
                 while(getActivePuzzle().getBoard().getBlock(activeBlockX, activeBlockY).isClosed()){
                     if(activeBlockY + 1 == getActivePuzzle().getBoard().getSize()){
                         //made it to the right edge
@@ -153,7 +168,7 @@ public class Model implements IModel{
                     else{
                         //hit the end of a row
                         if(activeBlockX + 1 < getActivePuzzle().getBoard().getSize()){
-                            //hit the end of the row but there are still 2 rows below so we can move down and keep checking
+                            //hit the end of the row but there are still 2 rows below, so we can move down and keep checking
                             activeBlockY = 0;
                             activeBlockX++;
                         }
@@ -208,5 +223,30 @@ public class Model implements IModel{
         }
         this.activeBlockY = y;
         this.activeBlockX = x;
+    }
+
+    @Override
+    public void setActivePuzzleIndex(int index){
+        if(index < 0 || index >= puzzleLibrary.size()){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        this.activePuzzleIndex = index;
+    }
+
+    @Override
+    public void addObserver(ModelObserver observer) {
+        modelObservers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ModelObserver observer) {
+        modelObservers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(ModelObserver observer : modelObservers){
+            observer.update(this);
+        }
     }
 }

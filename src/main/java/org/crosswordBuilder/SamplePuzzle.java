@@ -2,17 +2,15 @@ package org.crosswordBuilder;
 
 import org.crosswordBuilder.Model.*;
 
-import java.util.ArrayList;
-
 public class SamplePuzzle {
     /* Puzzles follow the convention below:
     -1 is a blacked out space
-    0 is an empty space (this will on appear in these solved puzzles
+    0 is an empty space (this will on appear in these solved puzzles)
 
-    Do i store both a soltion set and an empt puzzle
-    Or do i store an unsolved puzzle and then the clues that it follows
-    how do i store the clues?
-    accross clues
+    Do I store both a solution set and an empty puzzle
+    Or do I store an unsolved puzzle and then the clues that it follows
+    how do I store the clues?
+    across clues
     down clues
     nope easier to just store a solved puzzle
     so this puzzle library will store copies of solved puzzles that will then be "cleared"
@@ -51,9 +49,7 @@ public class SamplePuzzle {
         IClue A1 = new Clue("Detective's find", IPuzzle.Direction.ACROSS, 1, false);
         clues_01[0] = A1;
 
-        IPuzzle puzzle_01 = new Puzzle("Grande", board_01, clues_01);
-
-        return puzzle_01;
+        return new Puzzle("Grande", board_01, clues_01);
     }
 
 

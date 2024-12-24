@@ -1,8 +1,10 @@
 package org.crosswordBuilder;
 
+import javafx.application.Application;
+import org.crosswordBuilder.View.AppLauncher;
+
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Hello world!");
-        System.out.println("This is basically a crossword builder lol");
+        Application.launch(AppLauncher.class);
     }
 }

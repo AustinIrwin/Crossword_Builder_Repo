@@ -3,7 +3,10 @@ package org.crosswordBuilder;
 //import org.crosswordBuilder.Model.Block;
 import org.junit.Test;
 import org.crosswordBuilder.Model.*;
+import static org.crosswordBuilder.SamplePuzzle.*;
 
+//import static org.crosswordBuilder.SamplePuzzle.medium_Puzzle;
+//import static org.crosswordBuilder.SamplePuzzle.mini_Puzzle;
 import static org.junit.Assert.*;
 
 public class ModelTest {
@@ -46,7 +49,7 @@ public class ModelTest {
     @Test
     public void blockRandomTest(){
         try{
-            Block block = new Block(10);
+            new Block(10);
             fail();
         }catch(IllegalArgumentException e){
             //test passed
@@ -70,7 +73,7 @@ public class ModelTest {
                 {'J','A','M','E','S'},
                 {'O','R','S', -1 , -1 }};
 
-        IBoard mini_Board = new Board(mini_Frame);
+        new Board(mini_Frame);
     }
     public static IBoard mini_Board(){
         int[][] mini_Frame = {  { -1 , -1 ,'A','T','E'},
@@ -177,49 +180,13 @@ public class ModelTest {
         return mini_Clues;
     }
 
-    public static IBoard medium_Board(){
-        int[][] medium_Frame = {{-1 ,-1 ,'L','A','S','E',-1 },
-                {-1 ,'W','I','N','T','E','R'},
-                {'C','E','N','T','U','R','Y'},
-                {'A','G','E',-1 ,'D','I','E'},
-                {'R','O','O','K','I','E','S'},
-                {'L','O','N','G','E','R',-1 },
-                {-1 ,'D','E','B','S',-1 ,-1 }};
-
-        return new Board(medium_Frame);
-    }
-
-    public static IClue[] medium_Clue(){
-        IClue[] medium_clues = new IClue[16];
-        for(int x = 0; x < 16; x++){
-            medium_clues[x] = new Clue("Placeholder Clue, good luck guessing", IPuzzle.Direction.ACROSS, x, false);
-        }
-
-        return medium_clues;
-    }
-
     @Test
     public void puzzleConstructorTest(){
         IBoard board = mini_Board();
         IClue[] clues = miniClue();
 
-        IPuzzle puzzle = new Puzzle("Mini", board, clues);
+        new Puzzle("Mini", board, clues);
     }
-
-    public static IPuzzle mini_Puzzle(){
-        IBoard board = mini_Board();
-        IClue[] clues = miniClue();
-
-        return new Puzzle("Mini", board, clues);
-    }
-
-    public static IPuzzle medium_Puzzle(){
-        IBoard med_board = medium_Board();
-        IClue[] med_clues = medium_Clue();
-
-        return new Puzzle("Midi", med_board, med_clues);
-    }
-
     @Test
     public void puzzleLibraryConstructorTest(){
         IPuzzleLibrary puzzleLibrary = new PuzzleLibrary();
@@ -336,6 +303,29 @@ public class ModelTest {
         assertEquals(IPuzzle.Direction.DOWN, model.getDirection());
         model.toggleDirection();
         assertEquals(IPuzzle.Direction.ACROSS, model.getDirection());
+    }
+
+    @Test
+    public void modelPrevBlock(){
+        IModel model = new Model(puzzleLibrary());
+        model.toggleDirection();
+        assertEquals('A', model.getActiveBlock().getLetter());
+        model.nextBlock();
+        assertEquals('D', model.getActiveBlock().getLetter());
+        model.nextBlock();
+        assertEquals('A', model.getActiveBlock().getLetter());
+        model.nextBlock();
+        assertEquals('M', model.getActiveBlock().getLetter());
+        model.prevBlock();
+        assertEquals('A', model.getActiveBlock().getLetter());
+        model.prevBlock();
+        assertEquals('D', model.getActiveBlock().getLetter());
+        model.prevBlock();
+        assertEquals('A', model.getActiveBlock().getLetter());
+        model.prevBlock();
+        assertEquals('A', model.getActiveBlock().getLetter());
+
+
     }
 
 }
