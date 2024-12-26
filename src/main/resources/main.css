@@ -1,0 +1,27 @@
+.puzzleTitle {
+    -fx-font-family: Ariel;
+    -fx-font-size: 30;
+}
+.wordNum {
+    -fx-font-family: Ariel;
+}
+.guess {
+    -fx-font-family: Ariel;
+    -fx-justify-content: center;
+}
+
+.activeBlock {
+    -fx-background-color: yellow;
+}
+
+.wrong {
+    -fx-text-fill: red;
+}
+
+.cluesHeader{
+    -fx-font-family:Ariel;
+}
+
+.clue {
+    -fx-padding: 10;
+}

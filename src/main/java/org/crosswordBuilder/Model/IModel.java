@@ -9,6 +9,8 @@ public interface IModel {
     int getActiveBlockX();
     int getActiveBlockY();
 
+    boolean getShowCorrect();
+
     void nextPuzzle();
 
     void prevPuzzle();

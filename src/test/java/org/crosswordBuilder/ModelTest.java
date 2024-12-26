@@ -64,6 +64,13 @@ public class ModelTest {
         assertEquals('A', block.getGuess());
     }
 
+    @Test
+    public void blockIsCorrectTest(){
+        Block block = new Block('A');
+        block.setGuess('B');
+        assertTrue(block.isCorrect());
+    }
+
 
     @Test
     public void constructBoardTest(){

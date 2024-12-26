@@ -47,10 +47,16 @@ public class Model implements IModel{
     }
 
     @Override
+    public boolean getShowCorrect() {
+        return showCorrect;
+    }
+
+    @Override
     public void nextPuzzle() {
         if(activePuzzleIndex + 1 < puzzleLibrary.size()){
             activePuzzleIndex++;
         }
+        notifyObservers();
     }
 
     @Override
@@ -58,6 +64,7 @@ public class Model implements IModel{
         if(activePuzzleIndex > 0){
             activePuzzleIndex--;
         }
+        notifyObservers();
     }
 
     @Override
@@ -78,6 +85,7 @@ public class Model implements IModel{
                 else{nextWord();}
             }
         }
+        notifyObservers();
     }
 
     @Override
@@ -98,6 +106,7 @@ public class Model implements IModel{
                 }
             }
         }
+        notifyObservers();
     }
 
     @Override
@@ -185,7 +194,7 @@ public class Model implements IModel{
                 // I hope it works
             }
         }
-
+        notifyObservers();
     }
 
     public int firstY(){
@@ -199,7 +208,9 @@ public class Model implements IModel{
 
     @Override
     public void toggleShowCorrect() {
+        System.out.println("Toggling showCorrect");
         showCorrect = !showCorrect;
+        notifyObservers();
     }
 
     @Override
@@ -214,6 +225,7 @@ public class Model implements IModel{
             activeDirection = IPuzzle.Direction.ACROSS;
             System.out.println("Just changed direction to Across");
         }
+        notifyObservers();
     }
 
     @Override
@@ -223,6 +235,7 @@ public class Model implements IModel{
         }
         this.activeBlockY = y;
         this.activeBlockX = x;
+        notifyObservers();
     }
 
     @Override
@@ -231,6 +244,7 @@ public class Model implements IModel{
             throw new ArrayIndexOutOfBoundsException();
         }
         this.activePuzzleIndex = index;
+        notifyObservers();
     }
 
     @Override

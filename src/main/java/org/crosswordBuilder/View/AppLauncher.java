@@ -19,11 +19,13 @@ public class AppLauncher extends Application {
         stage.setTitle("Crushword 3000");
 
         IModel model = new Model(createLibrary());
+        model.nextPuzzle();
         IController controller = new Controller(model);
         View view = new View(model, controller, stage);
         model.addObserver(view);
 
         Scene scene = new Scene(view.render());
+        scene.getStylesheets().add("main.css");
         stage.setScene(scene);
         stage.show();
     }
