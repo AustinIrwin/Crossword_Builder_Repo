@@ -1,7 +1,9 @@
 package org.crosswordBuilder.View;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.crosswordBuilder.Controller.Controller;
 import org.crosswordBuilder.Controller.IController;
@@ -26,6 +28,40 @@ public class AppLauncher extends Application {
 
         Scene scene = new Scene(view.render());
         scene.getStylesheets().add("main.css");
+
+        scene.setOnKeyPressed( keyEvent -> {
+            KeyCode keyCode = keyEvent.getCode();
+            switch(keyCode) {
+                case UP:
+                    controller.blockUp();
+                    break;
+                case DOWN:
+                    controller.blockDown();
+                    break;
+                case LEFT:
+                    controller.blockLeft();
+                    break;
+                case RIGHT:
+                    controller.blockRight();
+                    break;
+                case TAB:
+                    controller.nextWord();
+                    break;
+                case BACK_SPACE:
+                    controller.backspace();
+                    break;
+                case DELETE:
+                    controller.backspace();
+                default:
+                    break;
+            }
+            char input = keyCode.getChar().charAt(0);
+            if ((input >= 65 && input <= 90) || (input >= 97 && input <= 122)) {
+                controller.guessBlock(input);
+                model.nextBlock();;
+            };
+        });
+
         stage.setScene(scene);
         stage.show();
     }

@@ -24,6 +24,7 @@ public class Controller implements IController{
     @Override
     public void guessBlock(char guess) {
         model.getActiveBlock().setGuess(guess);
+        model.notifyObservers();
     }
 
     @Override
@@ -78,6 +79,7 @@ public class Controller implements IController{
     @Override
     public void clickReset() {
         model.getActivePuzzle().getBoard().reset();
+        model.notifyObservers();
     }
 
 

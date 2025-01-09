@@ -46,7 +46,9 @@ public class ClueDashboardView implements FXComponent{
         //acrossScroll.setFitToHeight(true);
         //downScroll.setFitToHeight(true);
         acrossScroll.setPrefViewportHeight(200);
+        acrossScroll.setPrefViewportWidth(180);
         downScroll.setPrefViewportHeight(200);
+        downScroll.setPrefViewportWidth(180);
         acrossScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         acrossScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         downScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);

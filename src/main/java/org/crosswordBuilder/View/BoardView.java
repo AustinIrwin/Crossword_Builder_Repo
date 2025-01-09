@@ -1,13 +1,13 @@
 package org.crosswordBuilder.View;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import org.crosswordBuilder.Controller.IController;
@@ -61,7 +61,7 @@ public class BoardView implements FXComponent{
                     Font numberFont = new Font(blockSize* .25);
                     number.setFont(numberFont);
 
-                    model.getActivePuzzle().getBoard().getBlock(x, y).setGuess('A');
+                    //model.getActivePuzzle().getBoard().getBlock(x, y).setGuess('A');
                     Label letter = new Label("" + model.getActivePuzzle().getBoard().getBlock(x, y).getGuess());
                     letter.setMinHeight(blockSize * 0.75);
                     letter.setMinWidth(blockSize);
@@ -83,12 +83,28 @@ public class BoardView implements FXComponent{
                         vbox.getStyleClass().add("activeBlock");
                     }
 
-                    gridPane.add(vbox, y, x);
+                    StackPane stackPane = new StackPane();
+                    stackPane.getChildren().add(vbox);
+
+                    Button button = new Button("B");
+                    int row = x;
+                    int col = y;
+                    button.setOnAction( (ActionEvent e) ->
+                    {
+                        model.setActiveBlock(row, col);
+                    });
+                    button.setOpacity(0);
+                    button.setMinHeight(blockSize);
+                    button.setMaxHeight(blockSize);
+                    button.setMaxWidth(blockSize);
+                    button.setMinWidth(blockSize);
+
+                    stackPane.getChildren().add(button);
+                    gridPane.add(stackPane, y, x);
                 }
             }
-
-
         }
+        
 
         //gridPane.setMinSize(70,70);
         return gridPane;

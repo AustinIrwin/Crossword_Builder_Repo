@@ -34,7 +34,7 @@ public class ClueView implements FXComponent{
         gridPane.add(clueText, 1,0);
         gridPane.setHgap(10);
         //gridPane.setGridLinesVisible(true);
-        gridPane.getStylesheets().add("clue");
+        gridPane.getStyleClass().add("clue");
 
         return gridPane;
     }
